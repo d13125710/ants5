@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Chromo" Collapsed="true">
+    <Position X="0.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQBAFAoAAAAAgAAIAAgAAIBAIIJACAAEAAAgIBAAA=</HashCode>
+      <FileName>Chromo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MinMaxAntSystem" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QIoCAgAcAKAExEEAAACAWEgAAAAMAAQANAEAAAAEIAA=</HashCode>
+      <FileName>MinMaxAntSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoundDistance" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DistanceHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LocalSearch" Collapsed="true">
+    <Position X="1.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAABGAAAAAIAABAAAAAACAAgAQAAAAAAAAAY=</HashCode>
+      <FileName>LocalSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ant" Collapsed="true">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACIAAAAEgAAAAAAIAACAgGQQAAACAgAAAAAAAAAAA=</HashCode>
+      <FileName>Ant.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
