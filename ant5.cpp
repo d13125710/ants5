@@ -68,10 +68,10 @@ int _tmain(int argc, _TCHAR* argv[])
     srand( (unsigned)time( NULL ) );
 	createSolutionsMap();
 
-
-	//string file("berlin52");
+	//test change
+	string file("berlin52");
 	//string file("ulysses16");
-	string file("eil51");
+	//string file("eil51");
 	//string file("brg180");
 	//string file("fl1400");
 	//string file("pcb1173"); //pcb1173 pcb442 pr2392
