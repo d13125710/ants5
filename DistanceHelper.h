@@ -2,7 +2,10 @@
 #include <math.h>
 #define _USE_MATH_DEFINES
 
-# define M_PI           3.14159265358979323846  /* pi */
+//code traken from thomas studle
+
+
+const double M_PI   =        3.14159265358979323846 ; /* pi */
 
 class IDistance
 {
@@ -22,10 +25,10 @@ class IDistance
 };
 
 
-class EuclidianDistance : public IDistance
+class CEuclidianDistance : public IDistance
 {
 	public:	
-			EuclidianDistance(){}
+			CEuclidianDistance(){}
 	double calculate(double x1, double y1,double x2, double y2) 
 	{
 	   double x = x1 - x2;
@@ -34,10 +37,10 @@ class EuclidianDistance : public IDistance
 	   return  sqrt(dist);    
 	}
 };
-class RoundDistance : public IDistance
+class CRoundDistance : public IDistance
 {
 	public:
-		RoundDistance() {}
+		CRoundDistance() {}
 	double calculate(double x1, double y1,double x2, double y2) 
 	{
 	   double x = x1 - x2;
@@ -48,10 +51,10 @@ class RoundDistance : public IDistance
 	}
 
 };
-class geoDistance : public IDistance
+class CGeoDistance : public IDistance
 {
 	public:
-		geoDistance(){}
+		CGeoDistance(){}
 	double calculate(double x1, double y1,double x2, double y2)
 	{  
 		double deg, min;
@@ -82,10 +85,10 @@ class geoDistance : public IDistance
 	 }
 };
 
-class attDistance : public IDistance
+class CAttDistance : public IDistance
 {
 public:
-	attDistance() {}
+	CAttDistance() {}
 	double calculate(double x1, double y1,double x2, double y2)
 	 {
 	 

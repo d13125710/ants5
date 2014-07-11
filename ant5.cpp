@@ -11,12 +11,15 @@
 #include <string>
 #include <map>
 
-#include "FileReader.h"
-#include "AntSystem.h"
-#include "MinMaxAntSystem.h"
-#include "GeneticSystem.h"
-#include "ElitistAntSystem.h"
-#include "AntCSystem.h"
+#include "CTSPLIBFileReader.h"
+#include "CAntSystem.h"
+#include "CMinMaxAntSystem.h"
+#include "CGeneticSystem.h"
+#include "CElitistAntSystem.h"
+#include "CAntColonySystem.h"
+#include "BestWorstAntSystem.h"
+
+#include "PheroMatrix.h"
 
 
 
@@ -27,12 +30,13 @@
 
 //circle coo  (30, 5), (40, 10), (40, 20), (29, 25), (19, 25), (9, 19), (9, 9), (20, 5)
 void PrintSolutionInOrder(std::vector<int> &best);
-void doAnts(int num_cities , int ants , int third , std::vector<std::vector<int> > *matrix , std::string file);
+void doAnts(int num_cities , int ants ,  std::vector<std::vector<int> > *matrix , std::string file);
+void doMMAnts(int num_cities , int ants , int third , std::vector<std::vector<int> > *matrix , std::string file);
 void doElitest(int num_cities , int ants , int third , MatrixArrayTypeInt *matrix , std::string file);
 void doGen(int num_cities , int ants , double third , bool doOp1 , bool doOp2 , std::vector<std::vector<int> > *matrix , std::string file);
 void doGen2(int ants  , int num_cities , double third , bool doOp1 , bool doOp2 , std::vector<std::vector<int> > *matrix);
 void doACS(int ants  , int num_cities , double ro ,  double xi, double q0, bool doOp1 , bool doOp2 , std::vector<std::vector<int> > *matrix , std::string file);
-
+void doBWAnts(int num_cities , int ants , std::vector<std::vector<int> > *matrix , std::string file);
 std::map<std::string,unsigned int> m_Soltions;
 
 
@@ -65,9 +69,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	createSolutionsMap();
 
 
-	string file("berlin52");
+	//string file("berlin52");
 	//string file("ulysses16");
-	//string file("eil51");
+	string file("eil51");
 	//string file("brg180");
 	//string file("fl1400");
 	//string file("pcb1173"); //pcb1173 pcb442 pr2392
@@ -83,31 +87,33 @@ int _tmain(int argc, _TCHAR* argv[])
 	//	lin318
 //	string file("lin318");
 
-	FileReader fileReader(file);
+	CTSPLIBFileReader fileReader(file);
 	fileReader.Read();
 	
-	cout << "\nShorest optimized distance is = " << fileReader.ShowSolution();
+	cout << "\nShortest optimized distance is = " << fileReader.ShowSolution();
 
-	int num_cities = fileReader.getsize();
+	int num_cities = fileReader.getMatrixSize();
 
 
 	std::vector<std::vector<int> > matrix = fileReader.CopyMatrix();
 
+	//doBWAnts(num_cities , num_cities  , &matrix , file);
 
-//	doElitest(num_cities , 20 , 4, &matrix , file);
+	//doAnts(num_cities , num_cities  , &matrix , file);
+
+	doElitest(num_cities , num_cities , 4, &matrix , file);
 	
 	//AntSystem as(num_cities , num_cities);
-	doAnts(num_cities , 100 , 10 , &matrix , file);
-
-	// doGen2(10 , num_cities , 0.30 , false , false , matrix);
+	doMMAnts(num_cities , num_cities , 10 , &matrix , file);
 
 	
-	// doGen(318 , num_cities , .9 , false , true , matrix , file);
+	
+	doGen( num_cities , num_cities , .9 , false , true , &matrix , file);
 
 		
-	//doACS(num_cities  , num_cities , 0.1, 0.1, 0.9, false , false ,  matrix , file);
+	doACS(num_cities  , num_cities , 0.1, 0.1, 0.9, false , false ,  &matrix , file);
 	
-
+	system ("pause");
 	return 0;
 }
 void doElitest(int num_cities , int ants , int third , MatrixArrayTypeInt *matrix , std::string file)
@@ -116,26 +122,26 @@ void doElitest(int num_cities , int ants , int third , MatrixArrayTypeInt *matri
 	cout<< "\n--ElitistAntSystem-- \n"; 
 	int d =  std::numeric_limits<int>::max();
 
-	ElitistAntSystem Ea(num_cities ,  ants , third , matrix );
+	CElitistAntSystem Ea(num_cities ,  ants , third , matrix );
 	
-		Ea.initPheromones();
+	Ea.initPheromones();
 
 	Ea.initAnts();
 	Ea.calculateHeuristicMatrix();
 
-	for(int i = 0; i < 1000; i++)
+	for(int i = 0; i < 5000; i++)
 	{
 		Ea.constructSolutions();
-		//Ea.localSearch();
+	//	Ea.localSearch();
 		Ea.updatePheromones();
 		Ea.incIteration();
 
-		int dist= (int)Ea.getBestTourlengthSofar();
+		int dist= (int)Ea.getBestPathLengthSofar();
 		
 		int oDistance = m_Soltions[file];
 		if(oDistance == dist)
 		{
-			cout<< " best solution Found " << oDistance << "at irreteration = " << i << "\n";
+			cout<< " --best solution Found --" << oDistance << "at irreteration = " << i << "\n";
 			break;
 		}
 		else if(dist < d)
@@ -145,18 +151,14 @@ void doElitest(int num_cities , int ants , int third , MatrixArrayTypeInt *matri
 		}
 
 	}
-	vector<int> citys=Ea.getBestSoFarTour();
+	vector<int> citys=Ea.getBestSoFarPath();
 	PrintSolutionInOrder(citys);   
 	system ("pause");
-
-
 }
-
-
-void doACS(int ants  , int num_cities , double ro ,  double xi, double q0, bool doOp1 , bool doOp2 , std::vector<std::vector<int> > *matrix , std::string file)
+void doACS(int num_cities  , int ants , double ro ,  double xi, double q0, bool doOp1 , bool doOp2 , std::vector<std::vector<int> > *matrix , std::string file)
 {
 	cout<< "\n--Ant Colony System--\n";
-		AntCSystem acs(ants , num_cities , ro , xi , q0 , doOp1 ,doOp2,matrix);
+		CAntColonySystem acs(ants , num_cities , ro , xi , q0 , doOp1 ,doOp2,matrix);
 
 		acs.initPheromones();
 	
@@ -173,7 +175,7 @@ void doACS(int ants  , int num_cities , double ro ,  double xi, double q0, bool 
 			acs.updatePheromones();
 			acs.incIteration();
 		
-			int dist= (int)acs.getBestTourlengthSofar();
+			int dist= (int)acs.getBestPathLengthSofar();
 			int oDistance = m_Soltions[file];
 
 			if(oDistance == dist)
@@ -190,7 +192,7 @@ void doACS(int ants  , int num_cities , double ro ,  double xi, double q0, bool 
 			
 			
 		}
-	vector<int> citys=acs.getBestSoFarTour();
+	vector<int> citys=acs.getBestSoFarPath();
 	PrintSolutionInOrder(citys);
 	
 	system ("pause");
@@ -203,19 +205,19 @@ void doGen(int ants  , int num_cities , double third , bool doOp1 , bool doOp2 ,
 	cout<< "\n--GeneticSystem-- \n"; 
 	int d =  std::numeric_limits<int>::max();;
 	
-	GeneticSystem ga(ants , num_cities ,third, doOp1 , doOp2 , matrix);
+	CGeneticSystem ga(ants , num_cities ,third, doOp1 , doOp2 , matrix);
 	ga.initPopulation();
 
-	for(int i = 0; i < 1000; i++)
+	for(int i = 0; i < 5000; i++)
 	{
 			ga.stepGeneration();
             ga.localSearch();
             ga.setIteration(ga.getIteration()+1);
-			int dist= (int)ga.computeTourLength(ga.getBestSoFarTour());
+			int dist= (int)ga.computePathLength(ga.getBestSoFarPath());
 			int oDistance = m_Soltions[file];
 			if(oDistance == dist)
 			{
-				cout<< " best solution Found " << oDistance << "at irreteration = " << i << "\n";
+				cout<< " best solution Found " << oDistance << "at iteration = " << i << "\n";
 				break;
 			}
 			else if(dist < d)
@@ -225,17 +227,17 @@ void doGen(int ants  , int num_cities , double third , bool doOp1 , bool doOp2 ,
 			}
 			
 	}
-	vector<int> citys=ga.getBestSoFarTour();
+	vector<int> citys=ga.getBestSoFarPath();
 	PrintSolutionInOrder(citys);   
 	system ("pause");
 
 }
 
-void doAnts(int num_cities , int ants , int third , std::vector<std::vector<int> > *matrix , std::string file)
+void doMMAnts(int num_cities , int ants , int third , std::vector<std::vector<int> > *matrix , std::string file)
 {
 	cout<< "--MinMaxAntSystem-- \n"; 
 
-	MinMaxAntSystem mmas(num_cities , ants , third , matrix);
+	CMinMaxAntSystem mmas(num_cities , ants , third , matrix);
 	int d = std::numeric_limits<int>::max();;;
 
 	int oDistance = m_Soltions[file];
@@ -256,23 +258,114 @@ void doAnts(int num_cities , int ants , int third , std::vector<std::vector<int>
 			//cout << "Best tour for itteration " << i << " " << as.getBestTourLength() << " \n";
 			
 
-			int dist= (int)mmas.getBestTourlengthSofar();
+			int dist= (int)mmas.getBestPathLengthSofar();
 		
 			if(oDistance == dist)
 			{
-				cout<< " best solution Found " << oDistance << "at irreteration = " << i << "\n";
+				cout<< " best solution Found " << oDistance << "at iteration = " << i << "\n";
 				break;
 			}
 			else if(dist < d)
-			{
+			{ 
 				d = dist;
 				cout<< " best to date " << d << "\n";
 			}
 	}
 
-	vector<int> citys=mmas.getBestSoFarTour();
+	vector<int> citys=mmas.getBestSoFarPath();
 	PrintSolutionInOrder(citys);
 	system ("pause");
+}
+void doAnts(int num_cities , int ants , std::vector<std::vector<int> > *matrix , std::string file)
+{
+	cout<< "\n--CAntSystem-- \n"; 
+
+	CAntSystem as(num_cities , ants , matrix);
+	int d = std::numeric_limits<int>::max();;;
+
+	int oDistance = m_Soltions[file];
+
+	as.initPheromones();
+	as.calculateHeuristicMatrix();
+	as.initAnts();
+	cout << "Init complete\n"; 
+	for(int i = 0; i < 5000; i++)
+	{
+		//cout << ".";	
+		as.constructSolutions();
+		// mmas.localSearch();
+		as.updatePheromones();
+		as.incIteration();
+
+		//cout << i << ",";
+		//cout << "Best tour for itteration " << i << " " << as.getBestTourLength() << " \n";
+
+
+		int dist= (int)as.getBestPathLengthSofar();
+
+		if(oDistance == dist)
+		{
+			cout<< " best solution Found " << oDistance << "at iteration = " << i << "\n";
+			break;
+		}
+		else if(dist < d)
+		{ 
+			d = dist;
+			cout<< " best to date " << d << "\n";
+		}
+	}
+
+	vector<int> citys=as.getBestSoFarPath();
+	PrintSolutionInOrder(citys);
+	system ("pause");
+}
+
+
+
+
+void doBWAnts(int num_cities , int ants , std::vector<std::vector<int> > *matrix , std::string file)
+{
+	cout<< "\n--CBestWorstAntSystem-- \n"; 
+
+	CBestWorstAntSystem as(num_cities , ants , matrix);
+	int d = std::numeric_limits<int>::max();;;
+
+	int oDistance = m_Soltions[file];
+
+	as.initPheromones();
+	as.calculateHeuristicMatrix();
+	as.initAnts();
+	cout << "Init complete\n"; 
+	for(int i = 0; i < 5000; i++)
+	{
+		//cout << ".";	
+		as.constructSolutions();
+		// mmas.localSearch();
+		as.updatePheromones();
+		as.incIteration();
+
+		//cout << i << ",";
+		//cout << "Best tour for itteration " << i << " " << as.getBestTourLength() << " \n";
+
+
+		int dist= (int)as.getBestPathLengthSofar();
+
+		if(oDistance == dist)
+		{
+			cout<< " best solution Found " << oDistance << "at iteration = " << i << "\n";
+			break;
+		}
+		else if(dist < d)
+		{ 
+			d = dist;
+			cout<< " best to date " << d << "\n";
+		}
+	}
+
+	vector<int> citys=as.getBestSoFarPath();
+	PrintSolutionInOrder(citys);
+	system ("pause");
+
 }
 
 //find the number 0

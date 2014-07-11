@@ -137,32 +137,35 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ant.h" />
-    <ClInclude Include="AntCSystem.h" />
-    <ClInclude Include="AntSystem.h" />
-    <ClInclude Include="Chromo.h" />
+    <ClInclude Include="BestWorstAntSystem.h" />
+    <ClInclude Include="CAnt.h" />
+    <ClInclude Include="CAntColonySystem.h" />
+    <ClInclude Include="CAntSystem.h" />
+    <ClInclude Include="CChromo.h" />
     <ClInclude Include="DistanceHelper.h" />
-    <ClInclude Include="ElitistAntSystem.h" />
-    <ClInclude Include="FileReader.h" />
-    <ClInclude Include="GeneticSystem.h" />
-    <ClInclude Include="LocalSearch.h" />
-    <ClInclude Include="MinMaxAntSystem.h" />
+    <ClInclude Include="CElitistAntSystem.h" />
+    <ClInclude Include="CTSPLIBFileReader.h" />
+    <ClInclude Include="CGeneticSystem.h" />
+    <ClInclude Include="CLocalSearch.h" />
+    <ClInclude Include="CMinMaxAntSystem.h" />
+    <ClInclude Include="PheroMatrix.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TokenFinder.h" />
     <ClInclude Include="Tokenizer.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ant.cpp" />
+    <ClCompile Include="BestWorstAntSystem.cpp" />
+    <ClCompile Include="CAnt.cpp" />
     <ClCompile Include="ant5.cpp" />
-    <ClCompile Include="AntCSystem.cpp" />
-    <ClCompile Include="AntSystem.cpp" />
-    <ClCompile Include="Chromo.cpp" />
-    <ClCompile Include="Chromo1.cpp" />
-    <ClCompile Include="ElitistAntSystem.cpp" />
-    <ClCompile Include="FileReader.cpp" />
-    <ClCompile Include="GeneticSystem.cpp" />
-    <ClCompile Include="MinMaxAntSystem.cpp" />
+    <ClCompile Include="CAntColonySystem.cpp" />
+    <ClCompile Include="CAntSystem.cpp" />
+    <ClCompile Include="CChromo.cpp" />
+    <ClCompile Include="CElitistAntSystem.cpp" />
+    <ClCompile Include="CTSPLIBFileReader.cpp" />
+    <ClCompile Include="CGeneticSystem.cpp" />
+    <ClCompile Include="CMinMaxAntSystem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

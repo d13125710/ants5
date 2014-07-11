@@ -25,40 +25,49 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TokenFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tokenizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AntSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MinMaxAntSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LocalSearch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DistanceHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneticSystem.h">
+    <ClInclude Include="CAnt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chromo.h">
+    <ClInclude Include="CAntColonySystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AntCSystem.h">
+    <ClInclude Include="CMinMaxAntSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ElitistAntSystem.h">
+    <ClInclude Include="CAntSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CElitistAntSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGeneticSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CLocalSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTSPLIBFileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CChromo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BestWorstAntSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PheroMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,31 +78,31 @@
     <ClCompile Include="ant5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileReader.cpp">
+    <ClCompile Include="CAnt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AntSystem.cpp">
+    <ClCompile Include="CAntColonySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ant.cpp">
+    <ClCompile Include="CMinMaxAntSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MinMaxAntSystem.cpp">
+    <ClCompile Include="CAntSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneticSystem.cpp">
+    <ClCompile Include="CElitistAntSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chromo.cpp">
+    <ClCompile Include="CGeneticSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chromo1.cpp">
+    <ClCompile Include="CTSPLIBFileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AntCSystem.cpp">
+    <ClCompile Include="CChromo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ElitistAntSystem.cpp">
+    <ClCompile Include="BestWorstAntSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
