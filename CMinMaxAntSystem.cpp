@@ -10,13 +10,11 @@ CMinMaxAntSystem::CMinMaxAntSystem(unsigned int noNodes, unsigned int noAnts, un
      m_maxStagnationIterations = maxStagnationIterations;
      m_doOpt2 = false;
      m_doOpt3 = true;
-	 //m_pLocalSearch = new CLocalSearch(Vdistance);
-//	 m_bestDistanceLength = std::numeric_limits<int>::max();
 	 m_bestIterationLength = std::numeric_limits<int>::max();
 	 m_restartBestAntTourLength =  std::numeric_limits<int>::max();
 	 lambda = 0.05;
 	 m_resetAnt =false;
-//	 m_bestToDatePath.resize(noNodes);  //best t o date for even
+
 	 m_restartAntBestPath.resize(noNodes); ;
 	 m_bestIterationAntPath.resize(noNodes); ;
 
@@ -97,9 +95,10 @@ void CMinMaxAntSystem::updateBestSoFarPath()
 		//best in itteration
 		if (m_bestSoFarPathlength < m_restartBestAntTourLength)
 		{
-				m_restartBestAntTourLength =m_bestSoFarPathlength;
+				
 				m_restartAntBestPath = getBestTourIrreration();
-				irreationSinceLastBest =0;
+				m_restartBestAntTourLength =calculatePathLength(m_restartAntBestPath);// m_bestSoFarPathlength;
+				//irreationSinceLastBest =0;
 		}
 		else 
 		{
@@ -265,12 +264,14 @@ void CMinMaxAntSystem::updatePheromones()
 		//create nn_list ..
 		m_branchingFactor = nodeBranching(lambda);
 		double  branch_fac = 1.00001;
-		std::cout << "best so far " << calculatePathLength(m_bestSoFarPath) << ", iteration: "  << m_iterations << ", b_fac " << m_branchingFactor << "avg" << std::endl;
+	
 
 		if ( (m_branchingFactor < branch_fac)) 
 		{
-			std::cout << "INIT TRAILS!!!\n";
-			//m_restartBestAntTourLength
+			std::cout << "best so far " << calculatePathLength(m_bestSoFarPath) << " , restartAnt " << calculatePathLength(m_restartAntBestPath) <<
+				", irrbest " << calculatePathLength(getBestTourIrreration()) <<
+				", iteration: "  << m_iterations << ", b_fac " << m_branchingFactor << "avg" << std::endl;
+
 			m_restartBestAntTourLength =  std::numeric_limits<int>::max();
 			initPheromoneTrails(trail_max);
 			m_resetAnt = true;

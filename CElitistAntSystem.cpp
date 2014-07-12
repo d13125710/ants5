@@ -23,8 +23,8 @@ void CElitistAntSystem::updatePheromones()
  		// eq 14.2 / 14.3
 		this->m_newPheromoneMatrix->add(from , to , d_tau);
 
-		(*m_pheromoneMatrix)[from][to]+= d_tau;  //sermertic array
-	    (*m_pheromoneMatrix)[to][from]=  (*m_pheromoneMatrix)[from][to]; 
+	//	(*m_pheromoneMatrix)[from][to]+= d_tau;  //sermertic array
+	//    (*m_pheromoneMatrix)[to][from]=  (*m_pheromoneMatrix)[from][to]; 
 	
 	}
 	//for(std::vector<CAnt>::iterator it=m_Ants.begin(); it!=m_Ants.end();it++) {

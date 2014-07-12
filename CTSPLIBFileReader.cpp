@@ -8,7 +8,7 @@
 std::string::size_type sz;     // alias of size_t
  
 
-CTSPLIBFileReader::CTSPLIBFileReader(string &str)
+CTSPLIBFileReader::CTSPLIBFileReader(const string &str)
 {
 	m_fileName = str;
 	m_inFileStream.open(str + ".tsp");

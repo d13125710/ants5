@@ -9,19 +9,17 @@ const double M_PI   =        3.14159265358979323846 ; /* pi */
 
 class IDistance
 {
-    public:
+	public:
 		IDistance(){}
-		double dtrunc(double x)
-		{
+		double dtrunc(double x){
 			int k;
 
 			k = (int) x;
 			x = (double) k;
 			return x;
 		}
-
-        virtual ~IDistance() {}
-        virtual double calculate(double x1, double y1,double x2, double y2) = 0;
+		virtual ~IDistance() {}
+		virtual double calculate(double x1, double y1,double x2, double y2) = 0;
 };
 
 
@@ -31,10 +29,10 @@ class CEuclidianDistance : public IDistance
 			CEuclidianDistance(){}
 	double calculate(double x1, double y1,double x2, double y2) 
 	{
-	   double x = x1 - x2;
-	   double y = y1 - y2;
-	   double dist=(x*x) + (y*y);           //calculating distance by euclidean formula
-	   return  sqrt(dist);    
+		double x = x1 - x2;
+		double y = y1 - y2;
+		double dist=(x*x) + (y*y);           //calculating distance by euclidean formula
+		return  sqrt(dist);    
 	}
 };
 class CRoundDistance : public IDistance
@@ -55,8 +53,7 @@ class CGeoDistance : public IDistance
 {
 	public:
 		CGeoDistance(){}
-	double calculate(double x1, double y1,double x2, double y2)
-	{  
+	double calculate(double x1, double y1,double x2, double y2){  
 		double deg, min;
 		double lati, latj, longi, longj;
 		double q1, q2, q3;
@@ -81,7 +78,6 @@ class CGeoDistance : public IDistance
 		q3 = cos(lati + latj);
 		dd = (int) (6378.388 * acos(0.5 * ((1.0 + q1) * q2 - (1.0 - q1) * q3)) + 1.0);
 		return dd;
-
 	 }
 };
 

@@ -51,12 +51,9 @@ private:
 		//Generate random value between low and high (inclusive), except 'except'.
 		int temp;
 		bool done = false;
-
-		while(!done)
-		{
+		while(!done){
 			temp = (rand() % ((high + 1) - low)) + low;
-			if(temp != except)
-			{
+			if(temp != except){
 				done = true;
 			}
 		}

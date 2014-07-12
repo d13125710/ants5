@@ -72,7 +72,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	string file("berlin52");
 //	string file("ulysses16");
 	//string file("eil51");
-	//string file("brg180");
+///	string file("brg180");
 	//string file("fl1400");
 	//string file("pcb1173"); //pcb1173 pcb442 pr2392
 	//string file("pcb442");
@@ -100,6 +100,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	//doBWAnts(num_cities , num_cities  , &matrix , file);
 
 	//doAnts(num_cities , num_cities  , &matrix , file);
+	for(int j=0;j<50;j++)
+	doACS(num_cities  , num_cities , 0.1, 0.1, 0.9, false , false ,  &matrix , file);
 
 	//doElitest(num_cities , num_cities , 4, &matrix , file);
 	
@@ -112,7 +114,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	doGen( num_cities , num_cities , .9 , false , true , &matrix , file);
 
 		
-	doACS(num_cities  , num_cities , 0.1, 0.1, 0.9, false , false ,  &matrix , file);
+
 	
 	system ("pause");
 	return 0;
@@ -172,7 +174,7 @@ void doACS(int num_cities  , int ants , double ro ,  double xi, double q0, bool 
 		{
 			
 			acs.constructSolutions();
-	 		acs.localSearch();
+	 	//	acs.localSearch();
 			acs.updatePheromones();
 			acs.incIteration();
 		

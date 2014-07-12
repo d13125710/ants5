@@ -23,9 +23,12 @@ class CTSPLIBFileReader
 		double x;
 		double y;
 	};
+private:
+	//open
+	bool openFileStream();
+	void calculateDistanceMatrix();
 
 private: 
-
 	std::ifstream m_inFileStream; 
 	std::string m_fileName;
 	string m_sInput;
@@ -33,27 +36,19 @@ private:
  	MatrixArrayType m_theMatrix;
 	IDistance *p_mDistanceCalculator;
 
-private:
-	//open
-	bool openFileStream();
-	void calculateDistanceMatrix();
-
 public:
 	bool Read();
 	double ShowSolution();
-	double ReadMatrix(int x, int y) const
-	{
+	double ReadMatrix(int x, int y) const{
 		return  m_theMatrix[x][y];
 	}
-	MatrixArrayType CopyMatrix()
-	{
+	MatrixArrayType CopyMatrix(){
 		return m_theMatrix; 
 	}
-	int getMatrixSize() const
-	{
+	int getMatrixSize() const {
 	     return  (int)m_theMatrix.size();
 	}
-	CTSPLIBFileReader(string &str);
+	CTSPLIBFileReader(const string &str);
 	~CTSPLIBFileReader(void); 
 
 };

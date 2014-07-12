@@ -10,24 +10,18 @@ class CLocalSearch
 
 public:
 
-	CLocalSearch()
-	{
+	CLocalSearch(){
 		m_Vdistance = 0;
-
 	}
 
-	CLocalSearch(MatrixArrayTypeInt  *Vdistance)
-	{
+	CLocalSearch(MatrixArrayTypeInt  *Vdistance){
 		m_Vdistance = Vdistance;
 
 	}
-	void setMatrix(MatrixArrayTypeInt  *Vdistance)
-	{
-		if(m_Vdistance == 0)
-		{
+	void setMatrix(MatrixArrayTypeInt  *Vdistance){
+		if(m_Vdistance == 0){
 			m_Vdistance = Vdistance;
 		}
-
 	}
 
 

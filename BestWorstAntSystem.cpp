@@ -90,8 +90,9 @@ void CBestWorstAntSystem::initPheromoneTrails(double initialValue) const
 	{
 		for (j = 0; j <= i; j++) 
 		{
-			(*m_pheromoneMatrix)[i][j] = initialValue;
-			(*m_pheromoneMatrix)[j][i] = initialValue;
+			this->m_newPheromoneMatrix->set(i,j , initialValue);
+		//	(*m_pheromoneMatrix)[i][j] = initialValue;
+		//	(*m_pheromoneMatrix)[j][i] = initialValue;
 		}
 	}
 }
@@ -111,8 +112,9 @@ void CBestWorstAntSystem::updatePheromones()
 		int from = m_bestSoFarPath[city-1];
 		int to = m_bestSoFarPath[city];
 		// eq 14.2 / 14.3
-		(*m_pheromoneMatrix)[from][to]+= d_tau;  //sermertic array
-		(*m_pheromoneMatrix)[to][from]=  (*m_pheromoneMatrix)[from][to]; 
+		this->m_newPheromoneMatrix->add(from,to , d_tau);
+	//	(*m_pheromoneMatrix)[from][to]+= d_tau;  //sermertic array
+	//	(*m_pheromoneMatrix)[to][from]=  (*m_pheromoneMatrix)[from][to]; 
 
 	}
 
@@ -165,7 +167,7 @@ void CBestWorstAntSystem::bwas_pheromone_mutation( void )
      /* compute average pheromone trail on edges of global best solution */
     for ( i = 0 ; i < m_noNodes-1 ; i++ ) 
 	{
-		avg_trail +=  (*m_pheromoneMatrix)[m_bestSoFarPath[i]][m_bestSoFarPath[i+1]];
+		avg_trail +=  this->m_newPheromoneMatrix->get(m_bestSoFarPath[i] , m_bestSoFarPath[i+1]);
     }
     avg_trail /= (double) m_noNodes;
   
@@ -194,15 +196,19 @@ void CBestWorstAntSystem::bwas_pheromone_mutation( void )
 		j =   (long int) (fRand(0,1) * (double) m_noNodes);
 		k =   (long int) (fRand(0,1) * (double) m_noNodes);
 		if ( fRand(0,1) < 0.5 ) {
-			(*m_pheromoneMatrix)[j][k] += mutation_strength;
-			(*m_pheromoneMatrix)[k][j] = (*m_pheromoneMatrix)[j][k];
+			this->m_newPheromoneMatrix->add(j,k , mutation_strength);
+			//(*m_pheromoneMatrix)[j][k] += mutation_strength;
+			//(*m_pheromoneMatrix)[k][j] = (*m_pheromoneMatrix)[j][k];
 		}
-		else {
-			(*m_pheromoneMatrix)[j][k] -= mutation_strength;
-			if ( (*m_pheromoneMatrix)[j][k] <= 0.0 ) {
-				(*m_pheromoneMatrix)[j][k] = 0.00000000000000000000000000000001;
+		else 
+		{	this->m_newPheromoneMatrix->subtract(j,k , mutation_strength);
+			//(*m_pheromoneMatrix)[j][k] -= mutation_strength;
+			if ( this->m_newPheromoneMatrix->get(j,k) <= 0.0 ) 
+			{
+				this->m_newPheromoneMatrix->set(j,k ,0.00000000000000000000000000000001 );
+				//(*m_pheromoneMatrix)[j][k] = 0.00000000000000000000000000000001;
 			}
-			(*m_pheromoneMatrix)[k][j] = (*m_pheromoneMatrix)[j][k]; 
+			//(*m_pheromoneMatrix)[k][j] = (*m_pheromoneMatrix)[j][k]; 
 		}
     }
 }

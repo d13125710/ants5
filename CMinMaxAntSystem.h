@@ -17,9 +17,7 @@ class CMinMaxAntSystem: public CAntSystem
 private:
 	double m_tau0;
 	bool m_doLocalSearch , m_doOpt2 , m_doOpt3;
-	//double m_minPheromone ,m_maxPheromone;
     int m_maxStagnationIterations , m_stagnationIterations;
-	//CLocalSearch *m_pLocalSearch;
 	double lambda;
 	double  m_branchingFactor;
 	double  trail_0;
@@ -38,12 +36,11 @@ private:
 	void calculateNearestNeigbhor(unsigned int numberOfAnts);
 	void initPheromoneTrails(double initialValue) const;
 	void globalUpdatePheromone(const std::vector<int> &AntTour);
- 	
-	void chooseClosestNext(std::vector<bool> &antsvisted , std::vector<int> &nntour);
+ 	void chooseClosestNext(std::vector<bool> &antsvisted , std::vector<int> &nntour);
 	double nodeBranching(double l);
 
+
 public:
-//	void localSearch();
 	virtual void updateBestSoFarPath();
 	void initPheromones();
 	void checkPheromoneLimits();

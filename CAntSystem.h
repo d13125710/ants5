@@ -24,7 +24,7 @@ class CAntSystem
 protected:
 	PheroMatrix *m_newPheromoneMatrix;
 
-	MatrixArrayTypeDouble *m_pheromoneMatrix;
+//	MatrixArrayTypeDouble *m_pheromoneMatrix;
 	MatrixArrayTypeDouble *m_heuristicMatrix;
 	MatrixArrayTypeInt  *m_distanceMatrix;
 	long irreationSinceLastBest;
@@ -92,14 +92,17 @@ public:
 		return m_iterations;
 	}
 
-	int getItterationBestPathLength() const
+	int getItterationBestPathLength() 
 	{
 		int best= std::numeric_limits<int>::max();
 		for( unsigned int i=0; i<  m_noAnts ; i++)
 		{
 			int length = m_Ants[i].getAntTourLength();
 			if( length < best)
+			{
 				best =length;
+				BestAntIndex = i;
+			}
 
 		}
 		return best;
@@ -120,10 +123,10 @@ public:
 	{
 		return m_bestSoFarPathlength;
 	}
-	void setPheromonesMatrix(std::vector<std::vector<double> > &MatrixArrayType)
-	{
-		this->m_pheromoneMatrix = &MatrixArrayType;
-	}
+//	void setPheromonesMatrix(std::vector<std::vector<double> > &MatrixArrayType)
+//	{
+		//this->m_pheromoneMatrix = &MatrixArrayType;
+//	}
 	void setDistance(std::vector<std::vector<int> > &MatrixArrayType)
 	{
 		this->m_distanceMatrix = &MatrixArrayType;
@@ -136,10 +139,10 @@ public:
 	{
 		return getAnt(BestAntIndex);
 	}
-	double getPheromone(int i, int j) const
-	{
-        return (*m_pheromoneMatrix)[i][j];
-    }
+//	double getPheromone(int i, int j) const
+//	{
+ // //      return 0;//(*m_pheromoneMatrix)[i][j];
+//    }
 	double getHeuristicAt(int i, int j) const
 	{
         return (*m_heuristicMatrix)[i][j];
