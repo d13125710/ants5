@@ -220,7 +220,7 @@ void CChromo::crossover(CChromo  *father,  CChromo *offspring1,  CChromo  *offsp
   
 }
 
-int CChromo::getDistance()
+double CChromo::getDistance()
 {
     if(!fitness)
 	{

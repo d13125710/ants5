@@ -55,7 +55,7 @@ public:
 	void crossover(CChromo  *father,  CChromo  *offspring1,  CChromo  *offspring2);
 	CChromo CrossOver2(CChromo *pParent1);
 
-	int getDistance();
+	double getDistance();
 
 
 	CChromo(int noGenes, MatrixArrayTypeInt *distance);

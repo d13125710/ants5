@@ -21,6 +21,8 @@ void CElitistAntSystem::updatePheromones()
 		int from = m_bestSoFarPath[city-1];
 		int to = m_bestSoFarPath[city];
  		// eq 14.2 / 14.3
+		this->m_newPheromoneMatrix->add(from , to , d_tau);
+
 		(*m_pheromoneMatrix)[from][to]+= d_tau;  //sermertic array
 	    (*m_pheromoneMatrix)[to][from]=  (*m_pheromoneMatrix)[from][to]; 
 	
@@ -31,7 +33,7 @@ void CElitistAntSystem::updatePheromones()
 //}
 	
 
-	for(int k = 0; k < m_noAnts; k++)
+	for(unsigned int k = 0; k < m_noAnts; k++)
 		adjustPheremone(k);
 
 	calculateHeuristicMatrix();

@@ -14,7 +14,7 @@ CAntColonySystem::CAntColonySystem(int ants  , int num_cities , double ro ,  dou
 	this->xi = 0.1;
     this->tau0 = 0;
     this->q0 =0.9;
-//	this->m_rho = 0.5;
+	this->m_rho = 0.5;
 	this->m_r0 = 0.1;
  
 
@@ -26,7 +26,7 @@ CAntColonySystem::~CAntColonySystem(void)
 }
 void CAntColonySystem::evaporateAllPhero()
 {
-	for (int i=1; i < m_noNodes; i++) 
+	for (unsigned int i=1; i < m_noNodes; i++) 
 	{
 		int to = this->m_bestSoFarPath[i];
         int from = this->m_bestSoFarPath[i-1];	
@@ -55,7 +55,7 @@ is updated by applying the global updating rule of Eq. (4)
 	double dist = this->getBestSoFarPathLength();// getBestTourLength();
   	double d_tau =  1.0 / m_bestSoFarPathlength;
 
-	for(int i = 0; i < m_noNodes-1; i++)
+	for(unsigned int i = 0; i < m_noNodes-1; i++)
 	{
 			int j = m_bestSoFarPath[i];
 			int h = m_bestSoFarPath[i+1];
@@ -81,8 +81,8 @@ void CAntColonySystem::updateBestSoFarTour()
 //no need
 void CAntColonySystem::calculateHeuristicMatrix()
 {
-      for(int i = 0; i < m_noNodes; i++)
-          for(int j = 0; j < m_noNodes; j++)
+      for(unsigned int i = 0; i < m_noNodes; i++)
+          for(unsigned int j = 0; j < m_noNodes; j++)
 		  {
                 double xx = (*m_pheromoneMatrix)[i][j];
 				double yy = (*m_distanceMatrix)[i][j];
@@ -125,13 +125,13 @@ void CAntColonySystem::initPheromones()
 
 	this->m_bestSoFarPathlength = (int)lenght;
 	tau0= 1.0 / (((double)lenght)*(double)this->m_noAnts);
-	for (int i=0; i<m_noNodes; i++)	
+	for (unsigned int i=0; i<m_noNodes; i++)	
 	{
-		for (int j=0; j<m_noNodes; j++)
+		for (unsigned int j=0; j<m_noNodes; j++)
 			(*m_pheromoneMatrix)[i][j] = tau0;
 	}
 
-	for(int i=0;i<this->m_noNodes;i++)
+	for(unsigned int i=0;i<this->m_noNodes;i++)
 		(*m_pheromoneMatrix)[i][i] =0;
 
 
@@ -158,7 +158,7 @@ void CAntColonySystem::decisionRule(int k, int step)
      //roulette wheel selection  
 	int c = m_Ants[k].getCity(step-1); 
  
-		for (int i=0; i<m_noNodes; i++) 
+		for (unsigned int i=0; i<m_noNodes; i++) 
 		{
 			t_prob[i] = 0.0;
 			m_strength[i] = 0; 	
@@ -168,12 +168,12 @@ void CAntColonySystem::decisionRule(int k, int step)
 			}
 		}
 	//	strength[0] = 0;	
-		for (int z =0; z < m_noNodes; z++)
+		for (unsigned int z =0; z < m_noNodes; z++)
 			m_strength[z+1] = t_prob[z] + m_strength[z];
 				
 		double x = fRand(0,  m_strength[m_noNodes]);
 		
-		int j = 0;
+		unsigned int j = 0;
 		while (!((m_strength[j] <= x) && (x <= m_strength[j+1])))
 		  j++;
 		
@@ -230,16 +230,16 @@ void CAntColonySystem::constructSolutions()
 	initAnts();
 	 
 	//place ants in ramdom citys for starting
-	for (int k = 0; k < m_noAnts; k++ )
+	for (unsigned int k = 0; k < m_noAnts; k++ )
 	{
 		m_Ants[k].setAntCity(0,m_randomPath[k]);
 		m_Ants[k].setCityVisited(m_randomPath[k]);
 
 	}
 
-	for(int step = 1 ; step < m_noNodes; step++)
+	for(unsigned int step = 1 ; step < m_noNodes; step++)
 	{
-		for(int k = 0; k < m_noAnts; k++)
+		for(unsigned int k = 0; k < m_noAnts; k++)
 		{
 			decisionRule(k,step);
 			localPheromoneUpdate(k,step);
@@ -247,7 +247,7 @@ void CAntColonySystem::constructSolutions()
 		}
 	}
      
-	for(int k = 0; k < m_noAnts; k++)
+	for(unsigned int k = 0; k < m_noAnts; k++)
 	{
 		int tourstart=m_Ants[k].getCity(0);
 		m_Ants[k].setAntCity(m_noNodes,tourstart);

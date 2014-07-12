@@ -14,14 +14,25 @@ public:
 	
 	~PheroMatrix(void)
 	{
+		delete matrix_;
 	}
 
-	PheroMatrix(int vertices, double evaporation_rate, double initial_pheromone)
-	//	: matrix_(vertices , vertices)
+	PheroMatrix(int size, double evaporation_rate, double initial_pheromone)
 	{
-		
+		matrix_ = new MatrixArrayTypeDouble(size , size);
 		evaporation_rate_ = evaporation_rate;
 		initial_pheromone_ = initial_pheromone;
+	}
+	PheroMatrix(int size, double evaporation_rate)
+	{
+		matrix_ = new MatrixArrayTypeDouble(size , size);
+		evaporation_rate_ = evaporation_rate;
+		initial_pheromone_ = 1/size;
+		for (size_t i=0;i<matrix_->size();i++)	{
+			for (size_t j=0;j<matrix_->size();j++)
+				(*matrix_)[i][j] = initial_pheromone_;// 0.1 * rand() / (double)RAND_MAX;
+		}
+
 	}
 
 	double get(unsigned int v, unsigned int w) {
@@ -30,10 +41,16 @@ public:
 
 	void add(unsigned int v, unsigned int w, double amount) {
 		(*matrix_)[v][w] += amount;
+		(*matrix_)[w][v] += amount;
 	}
 
 	void evaporate(unsigned int v, unsigned int w) {
 		(*matrix_)[v][w] *= 1 - evaporation_rate_;
+		(*matrix_)[w][v] = (*matrix_)[v][w];
+	}
+	void set(unsigned int v, unsigned int w , double value) {
+		(*matrix_)[v][w] = value;
+		(*matrix_)[w][v] = value;
 	}
 
 	void evaporate_all() {
@@ -47,12 +64,12 @@ public:
 		return evaporation_rate_;
 	}
 
-	unsigned int size() {
-		return matrix_->size();
+	unsigned int  size() {
+		return static_cast<unsigned int>(matrix_->size());
 	}
 
 	double lambda_branching_factor(unsigned int v, double lambda) {
-		double min_pheromone = DBL_MAX;
+		double min_pheromone = std::numeric_limits<double>::max();
 		double max_pheromone = 0.0;
 		for(unsigned int i=0;i<this->size();i++) {
 			double pheromone = (*matrix_)[v][i];
@@ -80,7 +97,7 @@ public:
 		for(unsigned int i=0;i<this->size();i++) {
 			sum += lambda_branching_factor(i, lambda);
 		}
-		return sum / this->size();
+		return sum / (this->size() *2);
 	}
 };
 

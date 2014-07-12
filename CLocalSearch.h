@@ -177,7 +177,7 @@ public:
      
    }
 
-	 void swap2(double *v, double *v2, int i, int j)
+	 void swap2(double *v, int *v2, int i, int j)
     /*
      * FUNCTION: auxiliary routine for sorting an integer array
      * INPUT: two arraya, two indices
@@ -192,10 +192,10 @@ public:
 		v[j] = tmp;
 		tmp = v2[i];
 		v2[i] = v2[j];
-		v2[j] = tmp;
+		v2[j] = static_cast<int>(tmp);
     }
 
-    void sort2(double *v, double *v2, int left, int right)
+    void sort2(double *v, int *v2, int left, int right)
     /*
      * FUNCTION: recursive routine (quicksort) for sorting one array; second
      * arrays does the same sequence of swaps

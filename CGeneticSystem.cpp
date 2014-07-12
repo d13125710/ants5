@@ -86,7 +86,7 @@ std::vector<int> & CGeneticSystem::getBestPath()
 int CGeneticSystem::getBestPathLength()
 {
 	SortPopulation(m_ChromoPopulation , true);
- 	return m_ChromoPopulation[0].getDistance();
+ 	return static_cast<int>(m_ChromoPopulation[0].getDistance());
 }
 int CGeneticSystem::computePathLength(const std::vector<int> &Path)
 {
@@ -242,8 +242,8 @@ void CGeneticSystem::SortPopulation(std::vector<CChromo> &pop , bool Direction)
 		done = true;
 		for(int i = 0; i < pop.size()-1; i++)
 		{
-			int from = (Direction) ? pop[i].getDistance() : pop[i+1].getDistance();
-			int to = (Direction) ? pop[i+1].getDistance() : pop[i].getDistance();
+			double from = (Direction) ? pop[i].getDistance() : pop[i+1].getDistance();
+			double to = (Direction) ? pop[i+1].getDistance() : pop[i].getDistance();
 			
 			if(from > to)  //true
 			{

@@ -10,6 +10,7 @@
 
 #include "CAnt.h"
 #include "CLocalSearch.h"
+#include "PheroMatrix.h"
 
 typedef std::vector<std::vector<double> > MatrixArrayTypeDouble;
 typedef std::vector<std::vector<int> > MatrixArrayTypeInt;
@@ -21,6 +22,7 @@ class CAntSystem
 	
 
 protected:
+	PheroMatrix *m_newPheromoneMatrix;
 
 	MatrixArrayTypeDouble *m_pheromoneMatrix;
 	MatrixArrayTypeDouble *m_heuristicMatrix;
@@ -38,12 +40,12 @@ protected:
 	std::vector<double> m_strength;
 
 			
-    int m_noNodes;
+    unsigned int m_noNodes;
     double m_alpha;
     double m_beta;
     double m_rho;
     int m_iterations;
-	int m_noAnts;
+	unsigned int m_noAnts;
 	int m_bestSoFarPathlength;
 	int BestAntIndex;
 
@@ -52,7 +54,7 @@ protected:
 	{
 		static bool seeded = false;
 		if(!seeded) {
-			srand(time(NULL));
+			srand((unsigned )time(NULL));
 			seeded = true;
 		}
 		long _rnd = rand();
@@ -93,7 +95,7 @@ public:
 	int getItterationBestPathLength() const
 	{
 		int best= std::numeric_limits<int>::max();
-		for( int i=0; i<  m_noAnts ; i++)
+		for( unsigned int i=0; i<  m_noAnts ; i++)
 		{
 			int length = m_Ants[i].getAntTourLength();
 			if( length < best)
@@ -151,17 +153,17 @@ public:
 {
 
         if(m_LocalSearchOpt2){
-            for(int i = 0; i < m_noAnts; i++){
+            for(unsigned int i = 0; i < m_noAnts; i++){
 			   m_pLocalSearch->opt2(m_Ants[i].getAntsCityTour());
             }
         }
         if(m_LocalSearchOpt3){
-            for(int i = 0; i < m_noAnts; i++){
+            for(unsigned int i = 0; i < m_noAnts; i++){
                 m_pLocalSearch->opt3(m_Ants[i].getAntsCityTour());
             }
         }
 		if(m_LocalSearchGreed){
-            for(int i = 0; i < m_noAnts; i++){
+            for(unsigned int i = 0; i < m_noAnts; i++){
                 m_pLocalSearch->greedyAntPath(m_Ants[i].getAntsCityTour());
             }
         }

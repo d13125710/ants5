@@ -1,13 +1,11 @@
-﻿Build started 7/11/2014 12:13:02 AM.
+﻿Build started 7/12/2014 6:06:24 AM.
      1>Project "C:\Users\gareth\Documents\Visual Studio 2010\Projects\ant5\ant5\ant5.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "x64\Debug\ant5.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          All outputs are up-to-date.
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"x64\Debug\ant5.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt BestWorstAntSystem.cpp
-         BestWorstAntSystem.cpp
-     1>BestWorstAntSystem.cpp(55): warning C4101: 'i' : unreferenced local variable
-     1>BestWorstAntSystem.cpp(184): warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"x64\Debug\ant5.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt CMinMaxAntSystem.cpp
+         CMinMaxAntSystem.cpp
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\gareth\Documents\Visual Studio 2010\Projects\ant5\x64\Debug\ant5.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\ant5.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\gareth\Documents\Visual Studio 2010\Projects\ant5\x64\Debug\ant5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\gareth\Documents\Visual Studio 2010\Projects\ant5\x64\Debug\ant5.lib" /MACHINE:X64 x64\Debug\BestWorstAntSystem.obj
          x64\Debug\CAnt.obj
@@ -30,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.39
+Time Elapsed 00:00:01.74

@@ -68,9 +68,9 @@ int _tmain(int argc, _TCHAR* argv[])
     srand( (unsigned)time( NULL ) );
 	createSolutionsMap();
 
-	//test change
+	//test change online
 	string file("berlin52");
-	//string file("ulysses16");
+//	string file("ulysses16");
 	//string file("eil51");
 	//string file("brg180");
 	//string file("fl1400");
@@ -78,7 +78,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//string file("pcb442");
 	//string file("ulysses22");
 	//string file("pr2392");
-	//string file("rat783");
+//	string file("rat783");
 	
 	//pcb1173
 	//	pcb442
@@ -101,10 +101,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//doAnts(num_cities , num_cities  , &matrix , file);
 
-	doElitest(num_cities , num_cities , 4, &matrix , file);
+	//doElitest(num_cities , num_cities , 4, &matrix , file);
 	
 	//AntSystem as(num_cities , num_cities);
-	doMMAnts(num_cities , num_cities , 10 , &matrix , file);
+	for(int j=0;j<50;j++)
+	doMMAnts(num_cities , num_cities , 5 , &matrix , file);
 
 	
 	
@@ -246,11 +247,11 @@ void doMMAnts(int num_cities , int ants , int third , std::vector<std::vector<in
 	mmas.calculateHeuristicMatrix();
     mmas.initAnts();
 	cout << "Init complete\n"; 
-	for(int i = 0; i < 5000; i++)
+	for(int i = 0; i < 50000; i++)
 	{
 			//cout << ".";	
 			mmas.constructSolutions();
-			// mmas.localSearch();
+			mmas.localSearch();
 			mmas.updatePheromones();
 			mmas.incIteration();
 
@@ -340,7 +341,7 @@ void doBWAnts(int num_cities , int ants , std::vector<std::vector<int> > *matrix
 	{
 		//cout << ".";	
 		as.constructSolutions();
-		// mmas.localSearch();
+		//mmas.localSearch();
 		as.updatePheromones();
 		as.incIteration();
 
